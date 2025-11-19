@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Парти агенция Миньоните</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: #c4dbf7;
+      color: #333;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Голям бокс за логото */
+    .logo-box {
+      background-color: #ff0000bb;
+      width: 500px;   
+      height: 200px;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .logo {
+      max-width: 120%;
+      max-height: 120%;
+    }
+
+    /* Миньони отстрани на текста */
+    .minion-side {
+      position: absolute;
+      top: 73%;
+      transform: translateY(-80%);
+      width: 400px;
+    }
+
+    .minion-left-side {
+      left: 100px;
+    }
+
+    .minion-right-side {
+      right: 100px;
+    }
+
+    .minion-side img {
+      width: 120%;
+      height: auto;
+    }
+
+    /* Миньон в горния десен ъгъл */
+    .minion-top-corner {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 50px; /* започва малък */
+  opacity: 0; /* невидим */
+  z-index: 100;
+  transition: transform 0.3s, opacity 0.3s, width 0.3s;
+}
+
+.minion-top-corner img {
+  width: 100%;
+  height: auto;
+}
+
+/* клас за показване */
+.minion-top-corner.visible {
+  width: 180px;   /* големина при видимост */
+  opacity: 1;
+  transform: translate(-20px, 20px) scale(1.1);
+}
+
+    nav {
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      position: relative;
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      position: relative;
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 12px 15px;
+      display: block;
+      transition: color 0.3s;
+    }
+
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 0;
+      background-color: #e87efc;
+      transition: width 0.3s;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    nav ul li a:hover {
+      color: #e87efc;
+    }
+
+    nav ul li ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 0;
+      margin: 0;
+      border-radius: 8px;
+      z-index: 10;
+    }
+
+    nav ul li:hover ul {
+      display: block;
+    }
+
+    nav ul li ul li {
+      width: 250px;
+    }
+
+    nav ul li ul li a {
+      padding: 10px;
+      color: #555;
+    }
+
+    nav ul li ul li a:hover {
+      background: #f5e1ff;
+      color: #000;
+    }
+
+    /* Главна секция */
+    .main {
+      max-width: 800px;
+      margin: 60px auto;
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      text-align: center;
+      position: relative;
+      z-index: 5;
+    }
+
+    .main h1 {
+      color: #e87efc;
+      margin-bottom: 20px;
+      font-size: 36px;
+    }
+
+    .main p {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+
+    .quote {
+      font-style: italic;
+      color: #555;
+      margin-top: 25px;
+      font-size: 20px;
+    }
+
+    /* Контакти */
+    footer {
+      text-align: center;
+      padding: 30px;
+      margin-top: 80px;
+      background: #fff;
+      box-shadow: 0 -4px 8px rgba(0,0,0,0.05);
+    }
+
+    footer h3 {
+      font-size: 24px;
+    }
+
+    footer p, footer a {
+      font-size: 18px;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: #e87efc;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-box">
+      <img src="log.png" alt="Лого Миньоните" class="logo">
+    </div>
+  </header>
+
+  <!-- Миньони -->
+  <div class="minion-side minion-left-side">
+    <img src="minion-left.png" alt="Миньон вляво">
+  </div>
+  <div class="minion-side minion-right-side">
+    <img src="minion-right.png" alt="Миньон вдясно">
+  </div>
+  <div class="minion-top-corner">
+    <img src="minion-top.png" alt="Миньон отгоре">
+  </div>
+
+  <nav>
+    <ul>
+      <li>
+        <a href="#">Видове партита</a>
+        <ul>
+          <li><a href="parti1.html">Партита за деца от 2 до 7 години</a></li>
+          <li><a href="#">Партита за деца от 8 до 12 години</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Пиняти</a>
+      </li>
+      <li>
+        <a href="#">Детски работилнички</a>
+        <ul>
+          <li><a href="#">Рисуване</a></li>
+          <li><a href="#">Балонени фигури</a></li>
+        </ul>
+      </li>
+      <li><a href="#contacts">Контакти</a></li>
+    </ul>
+  </nav>
+
+  <div class="main">
+    <h1>За нас</h1>
+    <p>
+      Добре дошли в Парти агенция “Миньоните” – мястото, където забавлението няма граници! 
+      Ние сме екип от страстни професионалисти, които обичат да създават незабравими спомени 
+      и да правят всяко детско парти специално и вълнуващо.
+    </p>
+    <p>
+      Нашата мисия е проста: да осигурим уникално и магическо преживяване за вашето дете 
+      и всички негови приятели. Персонализираме всяко парти по ваш вкус и нужди – с тематични 
+      декорации, игри и забавления, които ще направят деня незабравим.
+    </p>
+    <p>
+      Изберете ни и нека Миньоните донесат усмивки, смях и магия на вашето парти!
+    </p>
+    <p class="quote">“Забавлението е магията, която прави всеки момент незабравим, а анимацията е ключът, който я отключва.”<br>– Уолт Дисни</p>
+  </div>
+
+  <footer id="contacts">
+    <h3>Свържете се с нас</h3>
+    <p>📞 Телефон: 0884316612</p>
+    <p>📧 Email: hi@mygroovydomain.com</p>
+    <a href="https://www.facebook.com/groups/675931118340423">Facebook</a> |
+    <a href="https://www.instagram.com/minionite_party">Instagram</a>
+  </footer>
+  
+  <script>
+      const minionTop = document.querySelector('.minion-top-corner');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) { // когато скролнеш 100px надолу
+        minionTop.classList.add('visible');
+      } else {
+        minionTop.classList.remove('visible');
+      }
+    });
+  </script>
+</body>
+</html>
+</body>
+</html>
