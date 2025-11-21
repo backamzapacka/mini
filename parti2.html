@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Партита за деца 2-7 години | Парти агенция Миньоните</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background-color: #c4dbf7;
+      color: #333;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Голям бокс за логото */
+    .logo-box {
+      background-color: #0458f5bb;
+      width: 500px;   
+      height: 200px;
+      margin: 30px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 25px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    .logo {
+      max-width: 120%;
+      max-height: 120%;
+    }
+
+    /* Миньони отстрани на текста */
+    .minion-side {
+      position: absolute;
+      top: 73%;
+      transform: translateY(-80%);
+      width: 400px;
+    }
+
+    .minion-left-side {
+      left: 100px;
+    }
+
+    .minion-right-side {
+      right: 100px;
+    }
+
+    .minion-side img {
+      width: 120%;
+      height: auto;
+    }
+
+    /* Миньон в горния десен ъгъл */
+    .minion-top-corner {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 50px;
+      opacity: 0;
+      z-index: 100;
+      transition: transform 0.3s, opacity 0.3s, width 0.3s;
+    }
+
+    .minion-top-corner img {
+      width: 100%;
+      height: auto;
+    }
+
+    .minion-top-corner.visible {
+      width: 180px;
+      opacity: 1;
+      transform: translate(-20px, 20px) scale(1.1);
+    }
+
+    nav {
+      background-color: white;
+      display: flex;
+      justify-content: center;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      position: relative;
+      margin: 0 20px;
+    }
+
+    nav ul li a {
+      position: relative;
+      text-decoration: none;
+      color: #444;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 12px 15px;
+      display: block;
+      transition: color 0.3s;
+    }
+
+    nav ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 0;
+      background-color: #e87efc;
+      transition: width 0.3s;
+    }
+
+    nav ul li a:hover::after {
+      width: 100%;
+    }
+
+    nav ul li a:hover {
+      color: #e87efc;
+    }
+
+    nav ul li ul {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #fff;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 0;
+      margin: 0;
+      border-radius: 8px;
+      z-index: 10;
+    }
+
+    nav ul li:hover ul {
+      display: block;
+    }
+
+    nav ul li ul li {
+      width: 250px;
+    }
+
+    nav ul li ul li a {
+      padding: 10px;
+      color: #555;
+    }
+
+    nav ul li ul li a:hover {
+      background: #f5e1ff;
+      color: #000;
+    }
+
+    /* Главна секция */
+    .main {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 30px;
+      position: relative;
+      z-index: 5;
+    }
+
+    .main h1 {
+      color: #e87efc;
+      margin-bottom: 10px;
+      font-size: 36px;
+      text-align: center;
+    }
+
+    .age-subtitle {
+      text-align: center;
+      color: #666;
+      font-size: 20px;
+      margin-bottom: 40px;
+    }
+
+    /* Карти с пакетите */
+    .packages {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-bottom: 40px;
+    }
+
+    .package-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border-top: 5px solid #e87efc;
+    }
+
+    .package-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .package-card h2 {
+      color: #e87efc;
+      font-size: 24px;
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+
+    .package-card .price {
+      font-size: 28px;
+      font-weight: bold;
+      color: #ff6b6b;
+      margin-bottom: 15px;
+    }
+
+    .package-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 15px 0;
+    }
+
+    .package-card ul li {
+      padding: 8px 0;
+      border-bottom: 1px solid #eee;
+      font-size: 15px;
+    }
+
+    .package-card ul li:before {
+      content: "✓ ";
+      color: #4CAF50;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    .package-card ul li:last-child {
+      border-bottom: none;
+    }
+
+    .cta-button {
+      background-color: #e87efc;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .cta-button:hover {
+      background-color: #d063e8;
+    }
+
+    /* Партита гридове */
+    .parties-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .party-card {
+      background: white;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .party-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 10px 25px rgba(232, 126, 252, 0.3);
+      border-color: #e87efc;
+    }
+
+    .party-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+    }
+
+    .party-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .party-card h3 {
+      color: #e87efc;
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .party-card p {
+      font-size: 13px;
+      color: #666;
+      margin: 0;
+    }
+
+    /* Модален прозорец */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      animation: fadeIn 0.3s;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 600px;
+      max-height: 80vh;
+      overflow-y: auto;
+      animation: slideIn 0.3s;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #e87efc;
+      padding-bottom: 15px;
+    }
+
+    .modal-header h2 {
+      color: #e87efc;
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .modal-image {
+      width: 100%;
+      margin-bottom: 20px;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .modal-image img {
+      width: 120px;
+      height: 120px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      object-fit: cover;
+    }
+
+    .close-btn {
+      font-size: 28px;
+      font-weight: bold;
+      color: #e87efc;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .close-btn:hover {
+      color: #d063e8;
+    }
+
+    .modal-options {
+      margin: 20px 0;
+    }
+
+    .modal-option {
+      background: #f5f5f5;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border-left: 4px solid #e87efc;
+    }
+
+    .modal-option h3 {
+      color: #333;
+      margin: 0 0 8px 0;
+      font-size: 18px;
+    }
+
+    .modal-option p {
+      margin: 5px 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .modal-option .price {
+      color: #ff6b6b;
+      font-weight: bold;
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    /* Подробна информация */
+    .info-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .info-section h2 {
+      color: #e87efc;
+      font-size: 28px;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    .info-section p {
+      font-size: 16px;
+      line-height: 1.8;
+      color: #555;
+      margin-bottom: 15px;
+    }
+
+    /* Контакти */
+    footer {
+      text-align: center;
+      padding: 30px;
+      margin-top: 80px;
+      background: #fff;
+      box-shadow: 0 -4px 8px rgba(0,0,0,0.05);
+    }
+
+    footer h3 {
+      font-size: 24px;
+    }
+
+    footer p, footer a {
+      font-size: 18px;
+    }
+
+    footer a {
+      text-decoration: none;
+      color: #e87efc;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-box">
+      <img src="log.png" alt="Лого Миньоните" class="logo">
+    </div>
+  </header>
+
+  <!-- Миньони -->
+  <div class="minion-side minion-left-side">
+    <img src="minion-left.png" alt="Миньон вляво">
+  </div>
+  <div class="minion-side minion-right-side">
+    <img src="minion-right.png" alt="Миньон вдясно">
+  </div>
+  <div class="minion-top-corner">
+    <img src="minion-top.png" alt="Миньон отгоре">
+  </div>
+
+  <nav>
+    <ul>
+      <li>
+        <a href="index.html">Начало</a>
+      </li>
+      <li>
+        <a href="#">Видове партита</a>
+        <ul>
+          <li><a href="parti1.html">Партита за деца от 2 до 7 години</a></li>
+          <li><a href="parti2.html">Партита за деца от 8 до 12 години</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#">Пиняти</a>
+      </li>
+      <li>
+        <a href="#">Детски работилнички</a>
+        <ul>
+          <li><a href="#">Рисуване</a></li>
+          <li><a href="#">Балонени фигури</a></li>
+        </ul>
+      </li>
+      <li><a href="#contacts">Контакти</a></li>
+    </ul>
+  </nav>
+
+  <div class="main">
+    <h1>🎉 Избери твоето парти!</h1>
+    <p class="age-subtitle">Цъкни на всяко парти, за да видиш цени и опции</p>
+
+    <div class="parties-grid" id="partiesGrid">
+      <!-- Партитата ще се генерират от JavaScript -->
+    </div>
+
+    <!-- Инфо секции -->
+    <div class="info-section">
+      <h2>📋 За какво е подходящо?</h2>
+      <p>
+        Нашите партита за деца от 2 до 7 години са идеални за:
+      </p>
+      <ul style="list-style: none; padding: 0;">
+        <li style="margin-bottom: 10px;"><strong>✓ Рождени дни</strong> – Направи момента незабравим за твоето дете</li>
+        <li style="margin-bottom: 10px;"><strong>✓ Детски градини и училища</strong> – Събрания, праздници и специални събития</li>
+        <li style="margin-bottom: 10px;"><strong>✓ Семейни събирания</strong> – Придай магия на вашите торти и празници</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer id="contacts">
+    <h3>Свържете се с нас</h3>
+    <p>📞 Телефон: 0884316612</p>
+    <p>📧 Email: hi@mygroovydomain.com</p>
+    <a href="https://www.facebook.com/groups/675931118340423">Facebook</a> |
+    <a href="https://www.instagram.com/minionite_party">Instagram</a>
+  </footer>
+
+  <script>
+    // ========================================
+    // РЕДАКТИРАЙ САМО ТОЗИ РАЗДЕЛ!
+    // ========================================
+    const parties = [
+      { 
+        name: "Футболно парти", 
+        image: "12.jpg",
+        modalImage: "st2.webp",
+        packages: [
+          { name: "90 минути", price: 130, features: ["Професионален аниматор като Стич", "Музикално озвучаване с микрофон", "Тематични игри", "Рисунки по лицето", "Фигурален балон за всяко дете", "Танци и дискотека"] },
+          { name: "120 минути", price: 150, features: ["Професионален аниматор като Стич", "Музикално озвучаване с микрофон", "Тематични игри", "Рисунки по лицето", "Фигурален балон за всяко дете", "Танци и дискотека", "Разширена програма"] }
+        ]
+      },
+      { 
+        name: "Пиратско парти", 
+        image: "13.jpg", 
+        modalImage: "el2.webp",
+        packages: [
+          { name: "90 минути", price: 130, features: ["Тържествено посрещане от Елза", "Музикално озвучаване с микрофон", "Тематични игри съобразени с възрастта", "Рисунки по лицето по желание", "Подарък фигурален балон за всяко дете", "Мини дискотека със песни от Замръзналото кралство", "Снимки със Елза"] },
+          { name: "120 минути", price: 150, features: ["Тържествено посрещане от Елза", "Музикално озвучаване с микрофон", "Тематични игри съобразени с възрастта", "Рисунки по лицето по желание", "Подарък фигурален балон за всяко дете", "Мини дискотека със песни от Замръзналото кралство", "Снимки със Елза", "Специално пожелание за рожденика"] }
+        ]
+      },
+      { 
+        name: "Хавайско парти", 
+        image: "11.jpg", 
+        modalImage: "spp2.webp",
+        packages: [
+          { name: "90 минути", price: 130, features: ["Професионален аниматор като Спайдър мен", "Музикално озвучаване с микрофон", "Тематични игри", "Рисунки по лицето", "Подарък фигурален балон за всяко дете", "Мини дискотека с любимите песни", "Снимки със Спайдър мен"] },
+          { name: "120 минути", price: 150, features: ["Професионален аниматор като Спайдър мен", "Музикално озвучаване с микрофон", "Тематични игри", "Рисунки по лицето", "Подарък фигурален балон за всяко дете", "Мини дискотека с любимите песни", "Снимки със Спайдър мен", "Специално пожелание за рожденика"] }
+        ]
+      },
+      { 
+        name: "Диско парти", 
+        image: "22.jpg", 
+        modalImage: "ar2.webp",
+        packages: [
+          { name: "90 минути", price: 130, features: ["Професионален аниматор като Ариел", "Музикално озвучаване с микрофон", "Тематични игри", "Рисунки по лицето", "Подарък фигурален балон за всяко дете", "Мини дискотека", "Снимки с Ариел", "Допълнително: Работилничка на русалките-създаване на красиви подводни аксесоари като гривнички с миди и перли."] },
+          { name: "120 минути", price: 150, features: ["Професионален аниматор като Ариел", "Музикално озвучаване с микрофон", "Тематични игри", "Рисунки по лицето", "Подарък фигурален балон за всяко дете", "Мини дискотека", "Снимки с Ариел", "Специално пожелание за рожденика", "Допълнително: Работилничка на русалките-създаване на красиви подводни аксесоари като гривнички с миди и перли."] },
+        ]
+      },
+      { 
+        name: "Пижамено парти", 
+        image: "33.jpg", 
+        modalImage: "zun.webp",
+        packages: [
+          { name: "90 минути", price: 130, features: ["Професионален аниматор като Фея Зън Зун", "Музикално озвучаване с микрофон", "Тематични игри", "Рисунки по лицето", "Подарък фигурален балон за всяко дете", "Мини дискотека", "Снимки с феята"] },
+          { name: "120 минути", price: 150, features: ["Професионален аниматор като Фея Зън Зун", "Музикално озвучаване с микрофон", "Тематични игри", "Рисунки по лицето", "Подарък фигурален балон за всяко дете", "Мини дискотека", "Снимки с феята", "Специално пожелание"] }
+        ]
+      },
+      { 
+        name: "Детска лаборатория", 
+        image: "43.jpg", 
+        modalImage: "157.png",
+        packages: [
+          { name: "90 минути", price: 130, features: ["Професионален аниматор палячо", "Музикално озвучаване", "Смешни игри и трикове", "Рисунки по лицето", "Подарък фигурален балон", "Мини дискотека", "Снимки с палячото"] },
+          { name: "120 минути", price: 150, features: ["Професионален аниматор палячо", "Музикално озвучаване", "Смешни игри и трикове", "Рисунки по лицето", "Подарък фигурален балон", "Мини дискотека", "Снимки с палячото", "Специално пожелание"] },
+        ]
+      },
+      { 
+        name: "Мастър шеф парти", 
+        image: "img_2709.jpg", 
+        modalImage: "s.webp",
+        packages: [
+          { name: "90 минути", price: 130, features: ["Професионален аниматор като Соник", "Музикално озвучаване с микрофон", "Тематични игри", "Рисунки по лицето", "Подарък фигурален балон", "Мини дискотека", "Снимки със Соник"] },
+          { name: "120 минути", price: 150, features: ["Професионален аниматор като Соник", "Музикално озвучаване с микрофон", "Тематични игри", "Рисунки по лицето", "Подарък фигурален балон", "Мини дискотека", "Снимки със Соник", "Специално пожелание"] }
+        ]
+      },
+      
+    ];
+    // ========================================
+
+    // Генериране на партитата
+    function renderParties() {
+      const grid = document.getElementById('partiesGrid'); 
+      grid.innerHTML = '';
+      
+      parties.forEach((party, index) => {
+        const card = document.createElement('div');
+        card.className = 'party-card';
+        card.innerHTML = `
+          <div class="party-icon">
+            <img src="${party.image}" alt="${party.name}">
+          </div>
+          <h3>${party.name}</h3>        `;
+        card.onclick = () => openModal(party.name, index);
+        grid.appendChild(card);
+      });
+    }
+
+    // Отваряне на модален прозорец
+    function openModal(partyName, index) {
+      const modal = document.getElementById('partyModal');
+      const header = document.getElementById('modalPartyName');
+      const imageDiv = document.getElementById('modalImage');
+      const optionsDiv = document.getElementById('modalOptions');
+      
+      header.innerHTML = `${partyName}`;
+      
+      // Добави снимката
+      const party = parties[index];
+      const displayImage = party.modalImage || party.image;
+imageDiv.innerHTML = `<img src="${displayImage}?t=${Date.now()}" alt="${party.name}" style="width: 400px; height: 600px; border-radius: 12px; object-fit: cover; display: block; margin: 0 auto;">`;      imageDiv.style.backgroundImage = 'none';
+      
+      optionsDiv.innerHTML = '';
+      party.packages.forEach((pkg) => {
+        const optionDiv = document.createElement('div');
+        optionDiv.className = 'modal-option';
+        optionDiv.innerHTML = `
+          <h3>${pkg.name}</h3>
+          <ul style="list-style: none; padding: 0; margin: 8px 0;">
+            ${pkg.features.map(f => `<li style="font-size: 13px; color: #666; margin: 4px 0;">✓ ${f}</li>`).join('')}
+          </ul>
+          <div class="price">${pkg.price} лв</div>
+          <button class="cta-button" onclick="contactUs('${partyName} - ${pkg.name}')">Резервирай</button>
+        `;
+        optionsDiv.appendChild(optionDiv);
+      });
+      
+      modal.style.display = 'block';
+    }
+
+    // Затваряне на модалния прозорец
+    function closeModal() {
+      document.getElementById('partyModal').style.display = 'none';
+    }
+
+    // Контакт функция
+    function contactUs(option) {
+      alert(`Чудесно! Избра си: ${option}\n\nСвържи се с нас:\n📞 0884316612\n📧 hi@mygroovydomain.com`);
+    }
+
+    // Затваряне при клик извън прозореца
+    window.onclick = function(event) {
+      const modal = document.getElementById('partyModal');
+      if (event.target == modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    // Инициализиране при зареждане на страницата
+    document.addEventListener('DOMContentLoaded', () => {
+      renderParties();
+    });
+
+    // Миньон анимация
+    const minionTop = document.querySelector('.minion-top-corner');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        minionTop.classList.add('visible');
+      } else {
+        minionTop.classList.remove('visible');
+      }
+    });
+  </script>
+
+  <!-- Модален прозорец -->
+  <div id="partyModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalPartyName">Парти</h2>
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+      </div>
+      <div id="modalImage"></div>
+      <div id="modalOptions"></div>
+    </div>
+  </div>
+</body>
+</html>
